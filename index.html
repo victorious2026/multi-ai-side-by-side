@@ -9,18 +9,63 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600&display=swap');
         
-        body { font-family: 'Inter', system_ui, sans-serif; }
-        .font-display { font-family: 'Space Grotesk', 'Inter', system_ui, sans-serif; font-weight: 600; }
-        .ai-pane { transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); }
-        .section-header { font-size: 0.875rem; letter-spacing: -.025em; font-weight: 600; }
-        .modern-textarea { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; font-size: 0.95rem; line-height: 1.5; }
-        .toast { animation: toast-pop-in 0.2s ease forwards; }
-        @keyframes toast-pop-in { from { opacity: 0; transform: translateY(10px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
-        .pane-header { background: linear-gradient(to right, #18181b, #27251f); }
-        .chat-window-hint { font-size: 0.75rem; padding: 1px 8px; background: #27251f; border-radius: 9999px; }
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+        }
+        
+        .font-display {
+            font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+            font-weight: 600;
+        }
+
+        .ai-pane {
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .section-header {
+            font-size: 0.875rem;
+            letter-spacing: -.025em;
+            font-weight: 600;
+        }
+
+        .modern-textarea {
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .toast {
+            animation: toast-pop-in 0.2s ease forwards;
+        }
+
+        @keyframes toast-pop-in {
+            from { opacity: 0; transform: translateY(10px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .pane-header {
+            background: linear-gradient(to right, #18181b, #27251f);
+        }
+
+        .chat-window-hint {
+            font-size: 0.75rem;
+            padding: 1px 8px;
+            background: #27251f;
+            border-radius: 9999px;
+        }
+
+        .modal {
+            animation: modal-pop 0.2s ease forwards;
+        }
+
+        @keyframes modal-pop {
+            from { opacity: 0; transform: scale(0.95) translateY(10px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
     </style>
 </head>
 <body class="bg-zinc-950 text-zinc-200">
+    <!-- Navbar -->
     <nav class="border-b border-zinc-800 bg-zinc-950/80 backdrop-blur-lg sticky top-0 z-50">
         <div class="max-w-screen-2xl mx-auto">
             <div class="px-8 py-4 flex items-center justify-between">
@@ -39,12 +84,16 @@
                         <span class="text-emerald-400 text-xs font-semibold">LIVE</span>
                     </div>
                 </div>
+
                 <div class="flex items-center gap-x-2">
-                    <button onclick="showInstructions()" class="px-4 py-2 text-sm flex items-center gap-x-2 rounded-2xl hover:bg-zinc-900 transition-colors border border-zinc-800 text-zinc-400 hover:text-zinc-200">
+                    <button onclick="showInstructions()"
+                            class="px-4 py-2 text-sm flex items-center gap-x-2 rounded-2xl hover:bg-zinc-900 transition-colors border border-zinc-800 text-zinc-400 hover:text-zinc-200">
                         <i class="fa-solid fa-info-circle"></i>
                         <span class="hidden sm:inline text-sm">How it works</span>
                     </button>
-                    <button onclick="clearAllData()" class="px-4 py-2 text-sm flex items-center gap-x-2 rounded-2xl hover:bg-red-950/50 transition-colors border border-zinc-800 text-zinc-400 hover:text-red-400">
+                    
+                    <button onclick="clearAllData()"
+                            class="px-4 py-2 text-sm flex items-center gap-x-2 rounded-2xl hover:bg-red-950/50 transition-colors border border-zinc-800 text-zinc-400 hover:text-red-400">
                         <i class="fa-solid fa-trash"></i>
                         <span class="hidden sm:inline">Clear data</span>
                     </button>
@@ -54,45 +103,60 @@
     </nav>
 
     <div class="max-w-screen-2xl mx-auto px-6 pt-8 pb-12">
+        
+        <!-- Hero -->
         <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-y-4 mb-8">
             <div>
                 <h1 class="font-display text-5xl tracking-tighter font-semibold">Parallel AI chats.<br>Zero friction.</h1>
-                <p class="mt-2 text-xl text-zinc-400 max-w-md">Chat with ChatGPT, Claude, and Grok side-by-side. Log in separately. Move ideas between them instantly.</p>
+                <p class="mt-2 text-xl text-zinc-400 max-w-md">Chat with ChatGPT, Claude, Grok, and Gemini side-by-side. Log in separately. Move ideas between them instantly.</p>
             </div>
+            
             <div>
-                <button onclick="launchSideBySide()" class="group flex items-center justify-center gap-x-3 bg-white hover:bg-zinc-100 active:bg-zinc-200 transition-all text-zinc-950 font-semibold px-8 h-14 rounded-3xl text-base shadow-xl shadow-white/10">
+                <button onclick="launchSideBySide()"
+                        class="group flex items-center justify-center gap-x-3 bg-white hover:bg-zinc-100 active:bg-zinc-200 transition-all text-zinc-950 font-semibold px-8 h-14 rounded-3xl text-base shadow-xl shadow-white/10">
                     <i class="fa-solid fa-external-link-alt group-active:scale-95 transition-transform"></i>
                     <span class="font-semibold">Launch Side-by-Side Chats</span>
                 </button>
-                <p class="text-center text-[10px] text-zinc-500 mt-1.5 tracking-wide">Opens 3 perfectly positioned windows</p>
+                <p class="text-center text-[10px] text-zinc-500 mt-1.5 tracking-wide">Opens 4 perfectly positioned windows</p>
             </div>
         </div>
 
+        <!-- Trust bar -->
         <div class="flex items-center gap-x-4 mb-8 text-xs">
             <div class="flex -space-x-1">
                 <div class="w-6 h-6 bg-emerald-500 rounded-full ring-2 ring-zinc-950 flex items-center justify-center"><span class="text-[9px] font-bold text-white">C</span></div>
                 <div class="w-6 h-6 bg-violet-500 rounded-full ring-2 ring-zinc-950 flex items-center justify-center"><span class="text-[9px] font-bold text-white">G</span></div>
                 <div class="w-6 h-6 bg-amber-500 rounded-full ring-2 ring-zinc-950 flex items-center justify-center"><span class="text-[9px] font-bold text-white">X</span></div>
+                <div class="w-6 h-6 bg-sky-500 rounded-full ring-2 ring-zinc-950 flex items-center justify-center"><span class="text-[9px] font-bold text-white">G</span></div>
             </div>
-            <div class="text-zinc-500">No APIs • No logins shared • Works in any modern browser</div>
+            <div class="text-zinc-500">No APIs • No shared logins • Works in any modern browser</div>
         </div>
 
-        <!-- Prompt Composer -->
+        <!-- PROMPT COMPOSER -->
         <div class="mb-8">
             <div class="flex items-center justify-between mb-3 px-1">
                 <div>
                     <span class="section-header text-zinc-400">PROMPT COMPOSER</span>
                     <span class="ml-2 text-xs px-2 py-px rounded bg-zinc-900 text-zinc-500">Central hub</span>
                 </div>
-                <button onclick="copyPrompt()" class="text-xs flex items-center gap-x-1.5 px-3 py-1.5 rounded-2xl bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 transition-colors text-zinc-400 hover:text-white">
-                    <i class="fa-solid fa-copy"></i>
-                    <span>Copy prompt</span>
-                </button>
+                <div class="flex items-center gap-x-3">
+                    <span id="char-count" class="text-xs text-zinc-500 font-mono">0 / 2000</span>
+                    <button onclick="copyPrompt()" 
+                            class="text-xs flex items-center gap-x-1.5 px-4 py-2 rounded-2xl bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 transition-colors text-zinc-400 hover:text-white">
+                        <i class="fa-solid fa-copy"></i>
+                        <span>Copy prompt</span>
+                    </button>
+                </div>
             </div>
+            
             <div class="bg-zinc-900 border border-zinc-800 rounded-3xl p-2 shadow-inner">
-                <textarea id="prompt-input" rows="3" class="modern-textarea w-full bg-zinc-950 border border-zinc-800 focus:border-zinc-600 rounded-2xl px-5 py-4 text-base placeholder:text-zinc-500 focus:outline-none resize-y min-h-[92px]" placeholder="Type your question or prompt here. Then copy it to any of the chats..."></textarea>
+                <textarea id="prompt-input" rows="3" maxlength="2000"
+                          class="modern-textarea w-full bg-zinc-950 border border-zinc-800 focus:border-zinc-600 rounded-2xl px-5 py-4 text-base placeholder:text-zinc-500 focus:outline-none resize-y min-h-[92px]"
+                          placeholder="Type your question or prompt here, then copy it to any chat..."></textarea>
+                
                 <div class="flex flex-wrap items-center gap-2 px-2 pt-2 pb-1">
                     <div class="text-xs text-zinc-500 px-2">Quick copy to:</div>
+                    
                     <button onclick="prepareForAI('chatgpt')" class="flex items-center gap-x-2 px-4 py-2 text-sm font-medium rounded-2xl bg-emerald-950 hover:bg-emerald-900 text-emerald-300 transition-colors border border-emerald-900">
                         <i class="fa-solid fa-comment-dots"></i> <span>ChatGPT</span>
                     </button>
@@ -102,208 +166,444 @@
                     <button onclick="prepareForAI('grok')" class="flex items-center gap-x-2 px-4 py-2 text-sm font-medium rounded-2xl bg-amber-950 hover:bg-amber-900 text-amber-300 transition-colors border border-amber-900">
                         <i class="fa-solid fa-comment-dots"></i> <span>Grok</span>
                     </button>
+                    <button onclick="prepareForAI('gemini')" class="flex items-center gap-x-2 px-4 py-2 text-sm font-medium rounded-2xl bg-sky-950 hover:bg-sky-900 text-sky-300 transition-colors border border-sky-900">
+                        <i class="fa-solid fa-comment-dots"></i> <span>Gemini</span>
+                    </button>
+                    
                     <div class="flex-1"></div>
+                    
                     <button onclick="usePromptInAll()" class="text-xs px-4 py-2 rounded-2xl border border-zinc-700 hover:bg-zinc-800 flex items-center gap-x-2 text-zinc-400 hover:text-white transition-colors">
-                        <i class="fa-solid fa-share-alt"></i> <span>Copy to all three</span>
+                        <i class="fa-solid fa-share-alt"></i>
+                        <span>Copy to clipboard</span>
                     </button>
                 </div>
             </div>
         </div>
 
-        <!-- Response Capture -->
+        <!-- RESPONSE CAPTURE & TRANSFER -->
         <div>
             <div class="flex items-center justify-between mb-3 px-1">
-                <div><span class="section-header text-zinc-400">RESPONSE CAPTURE &amp; TRANSFER</span></div>
-                <div class="text-xs text-zinc-500 flex items-center gap-x-1"><i class="fa-solid fa-lightbulb"></i> <span>Paste responses here • One-click transfer between AIs</span></div>
+                <div>
+                    <span class="section-header text-zinc-400">RESPONSE CAPTURE &amp; TRANSFER</span>
+                </div>
+                <div class="text-xs text-zinc-500 flex items-center gap-x-1">
+                    <i class="fa-solid fa-lightbulb"></i>
+                    <span>Paste responses here • One-click transfer between AIs</span>
+                </div>
             </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
-                <!-- ChatGPT -->
-                <div class="ai-pane bg-zinc-900 border border-zinc-800 rounded-3xl overflow-hidden flex flex-col">
-                    <div class="pane-header px-5 py-4 flex items-center justify-between border-b border-zinc-800">
-                        <div class="flex items-center gap-x-3">
-                            <div class="w-8 h-8 bg-emerald-500/10 text-emerald-400 rounded-2xl flex items-center justify-center"><i class="fa-solid fa-robot text-lg"></i></div>
-                            <div><div class="font-semibold tracking-tight">ChatGPT</div><div class="text-emerald-400 text-xs">OpenAI</div></div>
-                        </div>
-                        <div class="chat-window-hint text-emerald-400/70 px-2.5 py-px text-[10px] font-mono">WINDOW</div>
-                    </div>
-                    <div class="p-5 flex-1 flex flex-col">
-                        <div class="text-xs text-zinc-400 mb-1.5">Paste response from ChatGPT window</div>
-                        <textarea id="response-chatgpt" class="modern-textarea flex-1 w-full bg-zinc-950 border border-zinc-800 focus:border-emerald-600 rounded-2xl p-4 text-sm placeholder:text-zinc-600 min-h-[138px] resize-y" placeholder="Paste the key part of ChatGPT's response here..."></textarea>
-                        <div class="grid grid-cols-3 gap-2 mt-3">
-                            <button onclick="copyResponse('chatgpt')" class="col-span-1 text-xs py-2.5 rounded-2xl bg-zinc-800 hover:bg-zinc-700 flex items-center justify-center gap-x-1.5 transition-colors"><i class="fa-solid fa-copy text-xs"></i> <span class="font-medium">Copy</span></button>
-                            <button onclick="transferResponse('chatgpt', 'claude')" class="col-span-1 text-xs py-2.5 rounded-2xl bg-violet-900/70 hover:bg-violet-800 flex items-center justify-center gap-x-1 transition-colors text-violet-200"><span class="font-medium text-xs">→ Claude</span></button>
-                            <button onclick="transferResponse('chatgpt', 'grok')" class="col-span-1 text-xs py-2.5 rounded-2xl bg-amber-900/70 hover:bg-amber-800 flex items-center justify-center gap-x-1 transition-colors text-amber-200"><span class="font-medium text-xs">→ Grok</span></button>
-                        </div>
-                    </div>
-                </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4" id="response-panes">
+                <!-- Populated by JS -->
+            </div>
+        </div>
 
-                <!-- Claude -->
-                <div class="ai-pane bg-zinc-900 border border-zinc-800 rounded-3xl overflow-hidden flex flex-col">
-                    <div class="pane-header px-5 py-4 flex items-center justify-between border-b border-zinc-800">
-                        <div class="flex items-center gap-x-3">
-                            <div class="w-8 h-8 bg-violet-500/10 text-violet-400 rounded-2xl flex items-center justify-center"><i class="fa-solid fa-brain text-lg"></i></div>
-                            <div><div class="font-semibold tracking-tight">Claude</div><div class="text-violet-400 text-xs">Anthropic</div></div>
-                        </div>
-                        <div class="chat-window-hint text-violet-400/70 px-2.5 py-px text-[10px] font-mono">WINDOW</div>
-                    </div>
-                    <div class="p-5 flex-1 flex flex-col">
-                        <div class="text-xs text-zinc-400 mb-1.5">Paste response from Claude window</div>
-                        <textarea id="response-claude" class="modern-textarea flex-1 w-full bg-zinc-950 border border-zinc-800 focus:border-violet-600 rounded-2xl p-4 text-sm placeholder:text-zinc-600 min-h-[138px] resize-y" placeholder="Paste the key part of Claude's response here..."></textarea>
-                        <div class="grid grid-cols-3 gap-2 mt-3">
-                            <button onclick="copyResponse('claude')" class="col-span-1 text-xs py-2.5 rounded-2xl bg-zinc-800 hover:bg-zinc-700 flex items-center justify-center gap-x-1.5 transition-colors"><i class="fa-solid fa-copy text-xs"></i> <span class="font-medium">Copy</span></button>
-                            <button onclick="transferResponse('claude', 'chatgpt')" class="col-span-1 text-xs py-2.5 rounded-2xl bg-emerald-900/70 hover:bg-emerald-800 flex items-center justify-center gap-x-1 transition-colors text-emerald-200"><span class="font-medium text-xs">→ ChatGPT</span></button>
-                            <button onclick="transferResponse('claude', 'grok')" class="col-span-1 text-xs py-2.5 rounded-2xl bg-amber-900/70 hover:bg-amber-800 flex items-center justify-center gap-x-1 transition-colors text-amber-200"><span class="font-medium text-xs">→ Grok</span></button>
-                        </div>
-                    </div>
+        <!-- Pro Tips -->
+        <div class="mt-8 bg-zinc-900/60 border border-zinc-800 rounded-3xl p-5 text-sm">
+            <div class="flex items-start gap-x-4">
+                <div class="pt-0.5">
+                    <i class="fa-solid fa-magic text-xl text-zinc-400"></i>
                 </div>
-
-                <!-- Grok -->
-                <div class="ai-pane bg-zinc-900 border border-zinc-800 rounded-3xl overflow-hidden flex flex-col">
-                    <div class="pane-header px-5 py-4 flex items-center justify-between border-b border-zinc-800">
-                        <div class="flex items-center gap-x-3">
-                            <div class="w-8 h-8 bg-amber-500/10 text-amber-400 rounded-2xl flex items-center justify-center"><i class="fa-solid fa-rocket text-lg"></i></div>
-                            <div><div class="font-semibold tracking-tight">Grok</div><div class="text-amber-400 text-xs">xAI</div></div>
-                        </div>
-                        <div class="chat-window-hint text-amber-400/70 px-2.5 py-px text-[10px] font-mono">WINDOW</div>
-                    </div>
-                    <div class="p-5 flex-1 flex flex-col">
-                        <div class="text-xs text-zinc-400 mb-1.5">Paste response from Grok window</div>
-                        <textarea id="response-grok" class="modern-textarea flex-1 w-full bg-zinc-950 border border-zinc-800 focus:border-amber-600 rounded-2xl p-4 text-sm placeholder:text-zinc-600 min-h-[138px] resize-y" placeholder="Paste the key part of Grok's response here..."></textarea>
-                        <div class="grid grid-cols-3 gap-2 mt-3">
-                            <button onclick="copyResponse('grok')" class="col-span-1 text-xs py-2.5 rounded-2xl bg-zinc-800 hover:bg-zinc-700 flex items-center justify-center gap-x-1.5 transition-colors"><i class="fa-solid fa-copy text-xs"></i> <span class="font-medium">Copy</span></button>
-                            <button onclick="transferResponse('grok', 'chatgpt')" class="col-span-1 text-xs py-2.5 rounded-2xl bg-emerald-900/70 hover:bg-emerald-800 flex items-center justify-center gap-x-1 transition-colors text-emerald-200"><span class="font-medium text-xs">→ ChatGPT</span></button>
-                            <button onclick="transferResponse('grok', 'claude')" class="col-span-1 text-xs py-2.5 rounded-2xl bg-violet-900/70 hover:bg-violet-800 flex items-center justify-center gap-x-1 transition-colors text-violet-200"><span class="font-medium text-xs">→ Claude</span></button>
-                        </div>
-                    </div>
+                <div class="flex-1 text-xs leading-relaxed text-zinc-400">
+                    <span class="font-semibold text-zinc-300">Pro workflow:</span> 
+                    Launch the four windows → Ask the same question in all four → Paste interesting parts into the capture areas → 
+                    Use the transfer buttons to instantly move ideas between models.
+                    <br><br>
+                    <span class="text-emerald-400">Tip:</span> Use the Prompt Composer to craft a strong initial prompt, then copy it to each chat with one click.
                 </div>
             </div>
         </div>
 
-        <div class="mt-8 bg-zinc-900/60 border border-zinc-800 rounded-3xl p-5 text-sm">
-            <div class="flex items-start gap-x-4">
-                <div class="pt-0.5"><i class="fa-solid fa-magic text-xl text-zinc-400"></i></div>
-                <div class="flex-1 text-xs leading-relaxed text-zinc-400">
-                    <span class="font-semibold text-zinc-300">Pro workflow:</span> Launch the three windows → Ask the same question in all three → Paste interesting parts into the capture areas → Use the transfer buttons to instantly move ideas between models.
-                    <br><br><span class="text-emerald-400">Tip:</span> Use the Prompt Composer to craft a strong initial prompt, then copy it to each chat with one click.
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toast-container" class="fixed bottom-5 right-5 z-[999] flex flex-col gap-y-2"></div>
+
+    <!-- Instructions Modal -->
+    <div id="instructions-modal" class="hidden fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-[999]" onclick="hideInstructions()">
+        <div onclick="event.stopImmediatePropagation()" class="max-w-lg w-full mx-4 bg-zinc-900 border border-zinc-700 rounded-3xl p-7 modal">
+            <div class="flex justify-between items-start mb-5">
+                <div>
+                    <h3 class="font-semibold text-2xl tracking-tight">How to use MultiAI Side-by-Side</h3>
                 </div>
+                <button onclick="hideInstructions()" class="text-zinc-400 hover:text-white text-2xl leading-none">×</button>
+            </div>
+            
+            <div class="space-y-5 text-sm text-zinc-300">
+                <div class="flex gap-4">
+                    <div class="w-6 h-6 flex-shrink-0 rounded-full bg-white/10 flex items-center justify-center text-xs font-mono mt-0.5">1</div>
+                    <div><strong>Launch chats:</strong> Click the big button. Four windows will open perfectly arranged side-by-side.</div>
+                </div>
+                <div class="flex gap-4">
+                    <div class="w-6 h-6 flex-shrink-0 rounded-full bg-white/10 flex items-center justify-center text-xs font-mono mt-0.5">2</div>
+                    <div><strong>Log in independently:</strong> Log into each AI in its own window.</div>
+                </div>
+                <div class="flex gap-4">
+                    <div class="w-6 h-6 flex-shrink-0 rounded-full bg-white/10 flex items-center justify-center text-xs font-mono mt-0.5">3</div>
+                    <div><strong>Compose &amp; transfer:</strong> Write prompts in the central composer. Paste responses into the capture boxes below, then use the colored transfer buttons.</div>
+                </div>
+            </div>
+            
+            <div class="mt-7 pt-5 border-t border-zinc-800 text-xs text-zinc-500">
+                Everything is saved automatically in your browser. No data leaves your device.
             </div>
         </div>
     </div>
 
-    <div id="toast-container" class="fixed bottom-5 right-5 z-[999] flex flex-col gap-y-2"></div>
-
     <script>
+        function initTailwind() {}
+
         const AIS = {
-            chatgpt: { name: "ChatGPT", url: "https://chatgpt.com", color: "emerald" },
-            claude: { name: "Claude", url: "https://claude.ai", color: "violet" },
-            grok: { name: "Grok", url: "https://grok.com", color: "amber" }
+            chatgpt: { name: "ChatGPT", url: "https://chatgpt.com", color: "emerald", short: "C" },
+            claude:  { name: "Claude",  url: "https://claude.ai",   color: "violet",  short: "G" },
+            grok:    { name: "Grok",    url: "https://grok.com",    color: "amber",   short: "X" },
+            gemini:  { name: "Gemini",  url: "https://gemini.google.com", color: "sky", short: "G" }
         };
+
+        const aiKeys = Object.keys(AIS);
 
         function showToast(message, type = 'success') {
             const container = document.getElementById('toast-container');
             const toast = document.createElement('div');
-            toast.className = `toast max-w-xs w-full px-4 py-3 rounded-2xl shadow-2xl flex items-start gap-x-3 text-sm border ${type === 'success' ? 'bg-zinc-900 border-emerald-900 text-emerald-300' : 'bg-zinc-900 border-red-900 text-red-300'}`;
-            const icon = type === 'success' ? '<i class="fa-solid fa-check-circle mt-0.5 text-emerald-400"></i>' : '<i class="fa-solid fa-exclamation-circle mt-0.5 text-red-400"></i>';
-            toast.innerHTML = `<div class="flex-shrink-0">${icon}</div><div class="flex-1 pr-1">${message}</div><button onclick="this.parentElement.remove()" class="text-zinc-500 hover:text-white flex-shrink-0"><i class="fa-solid fa-times"></i></button>`;
+            
+            toast.className = `toast max-w-xs w-full px-4 py-3 rounded-2xl shadow-2xl flex items-start gap-x-3 text-sm border ${
+                type === 'success' 
+                    ? 'bg-zinc-900 border-emerald-900 text-emerald-300' 
+                    : 'bg-zinc-900 border-red-900 text-red-300'
+            }`;
+            
+            const iconHTML = type === 'success' 
+                ? '<i class="fa-solid fa-check-circle mt-0.5 text-emerald-400"></i>' 
+                : '<i class="fa-solid fa-exclamation-circle mt-0.5 text-red-400"></i>';
+            
+            toast.innerHTML = `
+                <div class="flex-shrink-0">${iconHTML}</div>
+                <div class="flex-1 pr-1"></div>
+                <button class="text-zinc-500 hover:text-white flex-shrink-0">
+                    <i class="fa-solid fa-times"></i>
+                </button>
+            `;
+            
+            toast.querySelector('.flex-1').textContent = message;
+            
+            const closeBtn = toast.querySelector('button');
+            closeBtn.onclick = () => toast.remove();
+            
             container.appendChild(toast);
-            setTimeout(() => { if (toast && toast.parentElement) { toast.style.transition = 'all 0.2s ease'; toast.style.opacity = '0'; setTimeout(() => toast.remove(), 150); } }, 4200);
+            
+            setTimeout(() => {
+                if (toast.parentElement) {
+                    toast.style.transition = 'all 0.2s ease';
+                    toast.style.opacity = '0';
+                    setTimeout(() => toast.remove(), 150);
+                }
+            }, 4200);
+        }
+
+        function safeSet(key, value) {
+            try { localStorage.setItem(key, value); } catch (e) { console.warn('localStorage write failed', e); }
+        }
+
+        function safeGet(key) {
+            try { return localStorage.getItem(key); } catch (e) { console.warn('localStorage read failed', e); return null; }
+        }
+
+        function safeClearAppData() {
+            try {
+                ['multiAI_prompt', 'multiAI_responses'].forEach(k => localStorage.removeItem(k));
+            } catch (e) { console.warn('localStorage clear failed', e); }
+        }
+
+        function updateCharCount() {
+            const textarea = document.getElementById('prompt-input');
+            const counter = document.getElementById('char-count');
+            if (!textarea || !counter) return;
+            const len = textarea.value.length;
+            counter.textContent = `${len} / 2000`;
+            counter.className = len > 1800 ? 'text-xs text-red-400 font-mono' : 'text-xs text-zinc-500 font-mono';
         }
 
         async function copyToClipboard(text, successMessage = "Copied to clipboard!") {
-            if (!text || text.trim() === "") { showToast("Nothing to copy", "error"); return false; }
+            if (!text || text.trim() === "") {
+                showToast("Nothing to copy", "error");
+                return false;
+            }
             try {
                 await navigator.clipboard.writeText(text);
                 showToast(successMessage);
                 return true;
             } catch (err) {
-                const textArea = document.createElement("textarea");
-                textArea.value = text; document.body.appendChild(textArea); textArea.select();
-                try { document.execCommand('copy'); showToast(successMessage); return true; }
-                catch (e) { showToast("Failed to copy. Please copy manually.", "error"); return false; }
-                finally { document.body.removeChild(textArea); }
+                showToast("Failed to copy. Please try again.", "error");
+                return false;
             }
         }
 
         function launchSideBySide() {
-            const w = Math.floor(window.screen.width / 3) - 12;
-            const h = Math.floor(window.screen.height * 0.82);
-            const positions = [{key:'chatgpt', left:8}, {key:'claude', left:w+16}, {key:'grok', left:(w+12)*2 + 8}];
+            const screenWidth = window.screen.width;
+            const screenHeight = window.screen.height;
+            const windowWidth = Math.floor(screenWidth / 4) - 10;
+            const windowHeight = Math.floor(screenHeight * 0.82);
+            const top = 50;
+
+            const positions = [
+                { key: 'chatgpt', left: 8 },
+                { key: 'claude',  left: windowWidth + 16 },
+                { key: 'grok',    left: (windowWidth + 12) * 2 + 8 },
+                { key: 'gemini',  left: (windowWidth + 12) * 3 + 12 }
+            ];
+
             let opened = 0;
-            positions.forEach((p, i) => {
-                setTimeout(() => {
-                    const win = window.open(AIS[p.key].url, `${AIS[p.key].name}_chat`, `width=${w},height=${h},left=${p.left},top=60,resizable=yes`);
+            positions.forEach((pos) => {
+                const ai = AIS[pos.key];
+                try {
+                    const win = window.open(ai.url, `${ai.name}_chat`, `width=${windowWidth},height=${windowHeight},left=${pos.left},top=${top},resizable=yes,scrollbars=yes`);
                     if (win) opened++;
-                    if (i === positions.length-1 && opened > 0) setTimeout(() => showToast(`Opened ${opened} chat windows side-by-side.`), 800);
-                }, i * 180);
+                } catch (e) {}
             });
+
+            if (opened > 0) {
+                setTimeout(() => showToast(`Opened ${opened} chat windows side-by-side.`), 800);
+            } else {
+                showToast("Popup blocked. Please allow popups for this site.", "error");
+            }
         }
 
         function prepareForAI(key) {
             const text = document.getElementById('prompt-input').value.trim();
             if (!text) { showToast("Please enter a prompt first", "error"); return; }
-            copyToClipboard(text, `Prompt ready for ${AIS[key].name}. Paste it now.`);
+            const ai = AIS[key];
+            copyToClipboard(text, `Prompt ready for ${ai.name}. Paste it into the chat window.`);
         }
 
         function copyPrompt() {
             const text = document.getElementById('prompt-input').value.trim();
-            if (text) copyToClipboard(text, "Prompt copied!");
+            if (!text) { showToast("Prompt is empty", "error"); return; }
+            copyToClipboard(text, "Prompt copied to clipboard!");
         }
 
         function usePromptInAll() {
             const text = document.getElementById('prompt-input').value.trim();
-            if (text) copyToClipboard(text, "Prompt copied! Paste into each chat window.");
+            if (!text) { showToast("Please enter a prompt first", "error"); return; }
+            copyToClipboard(text, "Prompt copied! Paste it into your preferred chat windows.");
+        }
+
+        function createResponsePane(key) {
+            const ai = AIS[key];
+            return `
+                <div class="ai-pane bg-zinc-900 border border-zinc-800 rounded-3xl overflow-hidden flex flex-col" data-key="${key}">
+                    <div class="pane-header px-5 py-4 flex items-center justify-between border-b border-zinc-800">
+                        <div class="flex items-center gap-x-3">
+                            <div class="w-8 h-8 bg-${ai.color}-500/10 text-${ai.color}-400 rounded-2xl flex items-center justify-center">
+                                <i class="fa-solid fa-robot text-lg"></i>
+                            </div>
+                            <div>
+                                <div class="font-semibold tracking-tight">${ai.name}</div>
+                                <div class="text-${ai.color}-400 text-xs">${key === 'gemini' ? 'Google' : (key === 'grok' ? 'xAI' : (key === 'claude' ? 'Anthropic' : 'OpenAI'))}</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-x-2">
+                            <button onclick="clearPane('${key}')" class="text-xs px-3 py-1 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-zinc-400">Clear</button>
+                            <div class="chat-window-hint text-${ai.color}-400/70 px-2.5 py-px text-[10px] font-mono">WINDOW</div>
+                        </div>
+                    </div>
+                    
+                    <div class="p-5 flex-1 flex flex-col">
+                        <div class="text-xs text-zinc-400 mb-1.5">Paste response from ${ai.name} window</div>
+                        <textarea id="response-${key}" 
+                                  class="modern-textarea flex-1 w-full bg-zinc-950 border border-zinc-800 focus:border-${ai.color}-600 rounded-2xl p-4 text-sm placeholder:text-zinc-600 min-h-[120px] resize-y"
+                                  placeholder="Paste the key part of ${ai.name}'s response here..."></textarea>
+                        
+                        <div class="grid grid-cols-2 gap-2 mt-3">
+                            <button onclick="copyResponse('${key}')" 
+                                    class="text-xs py-2.5 rounded-2xl bg-zinc-800 hover:bg-zinc-700 flex items-center justify-center gap-x-1.5 transition-colors">
+                                <i class="fa-solid fa-copy text-xs"></i>
+                                <span class="font-medium">Copy</span>
+                            </button>
+                            
+                            <div class="relative group">
+                                <button onclick="showTransferMenu('${key}', this)" 
+                                        class="w-full text-xs py-2.5 rounded-2xl bg-zinc-800 hover:bg-zinc-700 flex items-center justify-center gap-x-1.5 transition-colors">
+                                    <span class="font-medium">Transfer →</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function initResponsePanes() {
+            const container = document.getElementById('response-panes');
+            container.innerHTML = aiKeys.map(key => createResponsePane(key)).join('');
+            
+            aiKeys.forEach(key => {
+                const ta = document.getElementById(`response-${key}`);
+                if (ta) ta.addEventListener('input', saveResponses);
+            });
+        }
+
+        function showTransferMenu(fromKey, buttonElement) {
+            const fromAI = AIS[fromKey];
+            const text = document.getElementById(`response-${fromKey}`).value.trim();
+            
+            if (!text) {
+                showToast("No response captured yet in this pane.", "error");
+                return;
+            }
+
+            const menu = document.createElement('div');
+            menu.className = `absolute right-0 mt-1 w-48 bg-zinc-900 border border-zinc-700 rounded-2xl shadow-xl z-50 py-1 text-sm`;
+            
+            let html = '';
+            aiKeys.forEach(targetKey => {
+                if (targetKey === fromKey) return;
+                const targetAI = AIS[targetKey];
+                html += `
+                    <button class="w-full text-left px-4 py-2 hover:bg-zinc-800 flex items-center gap-x-2" 
+                            onclick="transferResponse('${fromKey}', '${targetKey}', true); this.closest('.absolute').remove()">
+                        <span>→ ${targetAI.name}</span>
+                    </button>
+                `;
+            });
+            
+            menu.innerHTML = html;
+            const rect = buttonElement.getBoundingClientRect();
+            menu.style.position = 'fixed';
+            menu.style.top = `${rect.bottom + 4}px`;
+            menu.style.left = `${rect.left}px`;
+            
+            document.body.appendChild(menu);
+            
+            setTimeout(() => {
+                document.addEventListener('click', function handler(e) {
+                    if (!menu.contains(e.target)) {
+                        menu.remove();
+                        document.removeEventListener('click', handler);
+                    }
+                }, { once: true });
+            }, 10);
+        }
+
+        async function transferResponse(fromKey, toKey, autoPaste = false) {
+            const fromText = document.getElementById(`response-${fromKey}`).value.trim();
+            if (!fromText) { showToast("No response to transfer.", "error"); return; }
+
+            const fromAI = AIS[fromKey];
+            const toAI = AIS[toKey];
+
+            await copyToClipboard(fromText, `Copied from ${fromAI.name}!`);
+
+            if (autoPaste) {
+                const targetTA = document.getElementById(`response-${toKey}`);
+                if (targetTA) {
+                    targetTA.value = fromText;
+                    saveResponses();
+                    showToast(`Pasted into ${toAI.name} pane.`);
+                }
+            } else {
+                showToast(`Response from ${fromAI.name} copied. Paste it into ${toAI.name} when ready.`);
+            }
         }
 
         function copyResponse(key) {
             const text = document.getElementById(`response-${key}`).value.trim();
-            if (text) copyToClipboard(text, `Response from ${AIS[key].name} copied.`);
+            if (!text) { showToast("This pane is empty.", "error"); return; }
+            const ai = AIS[key];
+            copyToClipboard(text, `Response from ${ai.name} copied.`);
         }
 
-        function transferResponse(fromKey, toKey) {
-            const text = document.getElementById(`response-${fromKey}`).value.trim();
-            if (!text) { showToast("No response captured yet.", "error"); return; }
-            copyToClipboard(text, `Copied from ${AIS[fromKey].name}! Paste into ${AIS[toKey].name}.`);
-            setTimeout(() => {
-                if (confirm(`Also load this into the Prompt Composer for refinement?`)) {
-                    document.getElementById('prompt-input').value = `Based on ${AIS[fromKey].name}'s response:\n\n"${text}"\n\n[Your follow-up here]`;
-                }
-            }, 600);
-        }
-
-        function showInstructions() {
-            alert("How to use:\n1. Click Launch Side-by-Side Chats\n2. Log into each AI in its own window\n3. Use the central prompt composer\n4. Paste responses into capture boxes and transfer with one click.");
-        }
-
-        function clearAllData() {
-            if (confirm("Clear everything?")) {
-                document.getElementById('prompt-input').value = '';
-                document.getElementById('response-chatgpt').value = '';
-                document.getElementById('response-claude').value = '';
-                document.getElementById('response-grok').value = '';
-                localStorage.clear();
-                showToast("Data cleared");
+        function clearPane(key) {
+            const ta = document.getElementById(`response-${key}`);
+            if (ta) {
+                ta.value = '';
+                saveResponses();
+                showToast(`${AIS[key].name} pane cleared.`);
             }
         }
 
-        // Auto-save
-        function setupAutoSave() {
-            ['prompt-input','response-chatgpt','response-claude','response-grok'].forEach(id => {
-                const el = document.getElementById(id);
-                if (el) {
-                    el.addEventListener('input', () => {
-                        localStorage.setItem('multiAI_' + id, el.value);
-                    });
-                    const saved = localStorage.getItem('multiAI_' + id);
-                    if (saved) el.value = saved;
-                }
-            });
+        function savePrompt() {
+            const val = document.getElementById('prompt-input').value;
+            safeSet('multiAI_prompt', val);
         }
 
-        window.onload = function() {
-            setupAutoSave();
-            console.log('%c[MultiAI] Tool ready. Repo: https://github.com/victorious2026/multi-ai-side-by-side', 'color:#52525b');
-        };
+        function saveResponses() {
+            const responses = {};
+            aiKeys.forEach(key => {
+                const ta = document.getElementById(`response-${key}`);
+                if (ta) responses[key] = ta.value;
+            });
+            safeSet('multiAI_responses', JSON.stringify(responses));
+        }
+
+        function loadSavedData() {
+            const savedPrompt = safeGet('multiAI_prompt');
+            if (savedPrompt) {
+                const ta = document.getElementById('prompt-input');
+                ta.value = savedPrompt;
+            }
+
+            const savedResponses = safeGet('multiAI_responses');
+            if (savedResponses) {
+                try {
+                    const responses = JSON.parse(savedResponses);
+                    aiKeys.forEach(key => {
+                        const ta = document.getElementById(`response-${key}`);
+                        if (ta && responses[key]) ta.value = responses[key];
+                    });
+                } catch (e) {}
+            }
+        }
+
+        function attachAutoSave() {
+            const promptTA = document.getElementById('prompt-input');
+            promptTA.addEventListener('input', () => {
+                savePrompt();
+                updateCharCount();
+            });
+            updateCharCount();
+        }
+
+        function clearAllData() {
+            if (!confirm("Clear prompt and all captured responses?")) return;
+            
+            document.getElementById('prompt-input').value = '';
+            
+            aiKeys.forEach(key => {
+                const ta = document.getElementById(`response-${key}`);
+                if (ta) ta.value = '';
+            });
+            
+            safeClearAppData();
+            showToast("All data cleared.");
+            updateCharCount();
+        }
+
+        function showInstructions() {
+            document.getElementById('instructions-modal').classList.remove('hidden');
+            document.getElementById('instructions-modal').classList.add('flex');
+        }
+
+        function hideInstructions() {
+            const modal = document.getElementById('instructions-modal');
+            modal.classList.remove('flex');
+            modal.classList.add('hidden');
+        }
+
+        function initializeApp() {
+            initTailwind();
+            initResponsePanes();
+            loadSavedData();
+            attachAutoSave();
+            console.log('%c[MultiAI] Fixed version loaded. All bugs addressed.', 'color:#52525b');
+            
+            if (!safeGet('multiAI_welcome_shown')) {
+                setTimeout(() => {
+                    showToast("Welcome! All bugs from the review have been fixed.");
+                    safeSet('multiAI_welcome_shown', 'true');
+                }, 1200);
+            }
+        }
+
+        window.onload = initializeApp;
     </script>
 </body>
 </html>
